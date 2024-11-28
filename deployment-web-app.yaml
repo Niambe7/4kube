@@ -13,7 +13,13 @@ spec:
         app: fleetman-web-app
     spec:
       containers:
-      - name: fleetman-web-app
-        image: supinfo4kube/web-app:1.0.0
-        ports:
-        - containerPort: 80
+        - name: fleetman-web-app
+          image: supinfo4kube/web-app:1.0.0
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: fleetman-config
+                  key: SPRING_PROFILES_ACTIVE
+          ports:
+            - containerPort: 80
